@@ -4,9 +4,9 @@ package com.cordyceps.cryptkicker;
  * Hello world!
  *
  */
-public class App 
+public class CrypKicker 
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
         System.out.println( "Hello World!" );
     }
