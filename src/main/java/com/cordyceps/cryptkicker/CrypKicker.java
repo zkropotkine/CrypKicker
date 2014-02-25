@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class CrypKicker {
 
-    private static String PATTERN = "el veloz murciérlago hindú comía feliz cardillo y kiwi cuando la cigüeña tocaba el saxofón detrás del palenque de paja";
+    private static String PATTERN = "el veloz murciélago hindú comía feliz cardillo y kiwi cuando la cigüeña tocaba el saxofón detrás del palenque de paja";
 
     /**
      *
@@ -32,7 +32,7 @@ public class CrypKicker {
 
         //String helperText = "MESSAGE";
         
-         String helperText = PATTERN;
+        String helperText = "el veloz murciélago hindú comía neliz cardillo y kiwi cuando la cigüeña tocaba el saxofón detrás del palenque de paja";
         println(helperText);
 
         Map<Character, List<Integer>> charsPositions = new LinkedHashMap<>(helperText.length());
@@ -54,9 +54,12 @@ public class CrypKicker {
             println(entry.getKey() + " " + entry.getValue().toString());
         }
 
-        String fakeCase = "uÒou uÒ ub eceuhoc axrx yiu bcÒ vcekruÒ xqisxh x xtisxr x bx pfuÒox" +
+        /*String fakeCase = "uÒou uÒ ub eceuhoc axrx yiu bcÒ vcekruÒ xqisxh x xtisxr x bx pfuÒox" +
                           " bx wcrrx qxpu rxafsxeuhou krfhqc Òckru ub aurrc humrc" +
-                          " bcÒ qchqirÒcÒ su arcmrxexqfch Òch sfnurofscÒ";
+                          " bcÒ qchqirÒcÒ su arcmrxexqfch Òch sfnurofscÒ";*/
+        
+        
+        String fakeCase = "cx kuyxnkfu úrj hcxujxqx hxlx jc qbx qj cx pdáx qj odókjlud ju hrjócx jc yjcdü árlskacxod mkuqt sdábx ujckü sxlqkccd z ikík srxuqd cx skovjex pdsxóx jc nxñdúfu qjplwn qjc hxcjuérj qj hxgx qj cdn wuojcjn sdu xrpdlküxskfu qjc jgjlskpd qj cx uxskfu sdu jc úku qj ljsrhjlxl cx hcxüx qj cdn ukedn";
         //String fakeCase =  "ABCCDEB";
 
         char[] caseArray = fakeCase.toCharArray();
@@ -64,7 +67,7 @@ public class CrypKicker {
         Resultado result = null;
         for (int i = 0; i <= caseArray.length - helperText.length(); i++) {
 
-            println(fakeCase.substring(i, i + helperText.length()));
+            println("\nPossiblePattern: " + fakeCase.substring(i, i + helperText.length()));
             result = processEntry(charsPositions, caseArray, i);
 
             if (result.isFoundPattern()) {
@@ -73,29 +76,32 @@ public class CrypKicker {
                 StringBuilder finalString = new StringBuilder(caseArray.length - helperText.length());
 
                 for (int j = 0; j < caseArray.length; j++) {
-                    //if (j == result.getPatternBeginIndex()) {
-                    //    j = j + helperText.length();
-                    //}
+                    
+                    if (j == result.getPatternBeginIndex()) {
+                        println(result.getPatternBeginIndex());
+                        println(j);
+                        println(helperText.length());
+                        println(j + helperText.length());
+                        
+                        //j = j + helperText.length();
+                    }
                     Character currentChar = caseArray[j];
                     Character sustitute = dictionary.get(currentChar);
 
-                    finalString.append(sustitute);
+                    finalString.append(j + " "+ sustitute);
                 }
                 println(finalString.toString());
                 break;
             }
         }
-
-
-
     }
 
     /**
      *
      * @param text
      */
-    private static void println(String text) {
-        System.out.println(text);
+    private static void println(Object text) {
+        System.out.println(text.toString());
     }
 
     private static Resultado processEntry(Map<Character, List<Integer>> patternPositions, char[] encryptedString, int beginIndex) {
@@ -121,13 +127,17 @@ public class CrypKicker {
 //            }
             
             while (dictionay.containsKey(currentChar)) {
-                currentChar = encryptedString[beginIndex + i++];
+                if (i + 1 <= encryptedString.length) {
+                    currentChar = encryptedString[beginIndex + i++];
+                } else {
+                    break encryptedString;
+                }
             }
             
             dictionay.put(currentChar, entry.getKey());
             
             println(currentChar + " " + entry.getKey());
-            boolean a = true;
+
             for (Integer currentPos : entry.getValue()) {
                  //println("" + i);
                  //println("" + currentPos);
